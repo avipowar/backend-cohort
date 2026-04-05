@@ -13,3 +13,9 @@
 
 - create utils folder inside the common 
 - and crete api-response.js file 
+
+# make standardize error or response
+- create ApiResponse class => for the return res to clint 
+- create ApiError class  => for the throw an error 
+- also learn how to show specific error and hide extra lines => using captureStackTrace
+- and show safe error to user => using isOperational (email is wrong)
