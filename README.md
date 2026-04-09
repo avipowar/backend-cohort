@@ -32,3 +32,11 @@
     - inside that pass the dtoClass 
     - and write the middleware 
 
+# create first user model (schema) using mongoose
+
+- create schema using mongoose 
+    - they take object and inside that object we define structure of mongodb document and data types and validation 
+    - he directly do not talk to mongodb 
+
+- create model 
+    - model using schema and  talk to mongodb and perform crud operations 
