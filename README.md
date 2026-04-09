@@ -40,3 +40,7 @@
 
 - create model 
     - model using schema and  talk to mongodb and perform crud operations 
+
+# create registerDto class inside dto folder
+- inside that override the object
+- and write fields to need user to register
