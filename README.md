@@ -44,3 +44,13 @@
 # create registerDto class inside dto folder
 - inside that override the object
 - and write fields to need user to register
+
+# create req flow 
+- create end point inside router.js file 
+- add middleware DtoClass 
+- Dto class hold the parent method which is validate 
+- child class override the schema
+- call the next and send req to controller
+- call the controller 
+- controller cal the service 
+- service hold the business logic 
