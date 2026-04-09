@@ -19,3 +19,16 @@
 - create ApiError class  => for the throw an error 
 - also learn how to show specific error and hide extra lines => using captureStackTrace
 - and show safe error to user => using isOperational (email is wrong)
+
+# create DTO
+
+- step 1 => create baseDto class 
+    - inside that create schema object 
+    - and validate method 
+    - this method show all the error at once 
+    - and avoid extra fields 
+
+- step 2 => create middleware 
+    - inside that pass the dtoClass 
+    - and write the middleware 
+
