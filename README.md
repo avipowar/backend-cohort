@@ -54,3 +54,9 @@
 - call the controller 
 - controller cal the service 
 - service hold the business logic 
+
+# generate jwtToken || create first user in db
+- create jwtToken using crypto 
+- used to send verify email 
+- and made two token 1 is rawToken and 2 is hashedToken
+- create first user
