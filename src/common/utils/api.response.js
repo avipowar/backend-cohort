@@ -15,7 +15,7 @@ class ApiResponse {
         })
     }
 
-    static noContenet(res){
+    static noContent(res){
         return res.status(204).send()
     }
 }

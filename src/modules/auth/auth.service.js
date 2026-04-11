@@ -28,6 +28,12 @@ const register = async ({name, email, password, role}) => {
     return userObj
 }
 
-register("avi", "powravinash@123", "pass@123", "admin")
+const login = async ({email , password}) => {
+    // take email and find user in db 
+    // then check password is correct 
+    // check if verified or not 
+
+    
+}
 
 export {register}

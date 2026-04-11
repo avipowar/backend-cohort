@@ -61,7 +61,7 @@
 - and made two token 1 is rawToken and 2 is hashedToken
 - create first user
 
-# generate accessToken and refreshToken using jwt 
+# generate accessToken and refreshToken using jwt for user to login
 - create accessToken using jwt.sign()
 - and verify the accessToken using jwt.verify()
 

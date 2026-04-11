@@ -33,4 +33,4 @@ const generateResetToken = () => {
   return { rawToken, hashedToken };
 };
 
-export { generateResetToken };
+export { generateResetToken, generateAccessToken, verifyAccessToken, generateRefreshToken, verifyRefreshToken };
