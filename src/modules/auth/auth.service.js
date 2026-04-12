@@ -70,7 +70,7 @@ const refresh = async (token) => {
     const decode = verifyRefreshToken(token)
 
     const user = await User.findById(decode.id).select("+refreshToken")
-    if(!user) throw piError.unauthorized("User Not Found");
+    if(!user) throw ApiError.unauthorized("User Not Found");
 
     if(user.refreshToken !== hashed(token)) {
         throw ApiError("Invalid refresh token")
