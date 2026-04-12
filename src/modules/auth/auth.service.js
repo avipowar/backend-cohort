@@ -1,6 +1,6 @@
 import User from "./auth.model"
 import ApiError from "../../common/utils/api.error"
-import { generateResetToken, generateAccessToken, generateRefreshToken,  } from "../../common/utils/jwt-utils"
+import { generateResetToken, generateAccessToken, generateRefreshToken, verifyRefreshToken,  } from "../../common/utils/jwt-utils"
 import crypto from "crypto"
 
 const register = async ({name, email, password, role}) => {
@@ -61,6 +61,29 @@ const login = async ({email , password}) => {
 
     return {user : userObj, refreshToken, accessToken}
     
+}
+
+const refresh = async (token) => {
+
+    if(!token) throw ApiError.unauthorized("Refresh token is missing");
+
+    const decode = verifyRefreshToken(token)
+
+    const user = await User.findById(decode.id).select("+refreshToken")
+    if(!user) throw piError.unauthorized("User Not Found");
+
+    if(user.refreshToken !== hashed(token)) {
+        throw ApiError("Invalid refresh token")
+    }
+
+    const accessToken = generateAccessToken({id: user._id, role: user.role}) 
+    const refreshToken = generateRefreshToken({id: user._id, role: user.role}) 
+
+    user.refreshToken = hashed(refreshToken)
+
+    await user.save({validateBeforeSave:false})
+
+    return {accessToken}
 }
 
 export {register}

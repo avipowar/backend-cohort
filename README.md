@@ -75,3 +75,11 @@
 - if verified generate accessToken refreshToken
 - refreshToken saved id db 
 - accessToken and refreshToken send to the clint  
+
+# create refreshService
+- check token is valid or not 
+- verify the token 
+- find the user in db according to verify token data
+- generate accessToken and refreshToken 
+- update the refreshToken inside the db 
+- and send the accessToken to the user
