@@ -83,3 +83,7 @@
 - generate accessToken and refreshToken 
 - update the refreshToken inside the db 
 - and send the accessToken to the user
+
+# create logout service 
+- check user exist or not 
+- if exist update the refreshToken value = null 

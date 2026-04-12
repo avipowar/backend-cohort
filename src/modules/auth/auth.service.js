@@ -86,4 +86,15 @@ const refresh = async (token) => {
     return {accessToken}
 }
 
+const logout = async (userId) => {
+
+    const user = await User.findById(userId);
+    if(!user) throw ApiError.unauthorized("User Not Found")
+
+    user.refreshToken = undefined;
+    await user.save({validateBeforeSave: false})
+
+    // await User.findByIdAndUpdate(userId, {refreshToken: null})
+}
+ 
 export {register}
