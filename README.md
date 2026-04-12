@@ -67,3 +67,11 @@
 
 - create refreshToken using jwt.sign()
 - and verify the refreshToken using jwt.verify()
+
+# create login service 
+- take email and password 
+- check in db exist or not and check correct or not 
+- then check isVerified or not 
+- if verified generate accessToken refreshToken
+- refreshToken saved id db 
+- accessToken and refreshToken send to the clint  

@@ -1,6 +1,7 @@
 import User from "./auth.model"
 import ApiError from "../../common/utils/api.error"
-import { generateResetToken } from "../../common/utils/jwt-utils"
+import { generateResetToken, generateAccessToken, generateRefreshToken,  } from "../../common/utils/jwt-utils"
+import crypto from "crypto"
 
 const register = async ({name, email, password, role}) => {
 
@@ -28,11 +29,37 @@ const register = async ({name, email, password, role}) => {
     return userObj
 }
 
+const hashed = (token) => {
+   return crypto.createHash("sha256").update(token).digest("hex")
+}
+
 const login = async ({email , password}) => {
     // take email and find user in db 
     // then check password is correct 
     // check if verified or not 
 
+    const user = await User.findOne({email}).select("+password")
+
+    if(!user) throw ApiError.unauthorized("Invalid Email or Password")
+
+    // some how i will check Password
+
+    if(!user.isVerified){
+        throw ApiError.forbidden("Please Verify your email before login")
+    }
+
+    const accessToken = generateAccessToken({id: user._id, role : user.role})
+    const refreshToken = generateRefreshToken({id: user._id})
+
+    user.refreshToken = hashed(refreshToken);
+
+    await user.save({validateBeforeSave: false})
+
+    const userObj = user.toObject()
+    delete userObj.password
+    delete userObj.refreshToken
+
+    return {user : userObj, refreshToken, accessToken}
     
 }
 
