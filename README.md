@@ -87,3 +87,10 @@
 # create logout service 
 - check user exist or not 
 - if exist update the refreshToken value = null 
+
+# create forgot password to the user
+- for that we take mail from the user 
+- i check this mail exist in db 
+- if exist i create token 
+- one token send to the user 
+- another save in db {in hashed format }
