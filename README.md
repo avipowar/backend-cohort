@@ -94,3 +94,10 @@
 - if exist i create token 
 - one token send to the user 
 - another save in db {in hashed format }
+
+# create reset-password service 
+- take token and new password from the user 
+-  check token exist in db
+- check expired token 
+- update new password from db 
+- delete the token  
