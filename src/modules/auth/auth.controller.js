@@ -1,11 +1,23 @@
-import * as authService from "./auth.service"
-import ApiResponse from "../../common/utils/api.response"
+import * as authService from "./auth.service";
+import ApiResponse from "../../common/utils/api.response";
 
 const register = async (req, res) => {
-    // something
-    const user = await authService.register(req.body)
+  // something
+  const user = await authService.register(req.body);
 
-    ApiResponse.created(res, "Registration success", user)
-}
+  ApiResponse.created(res, "Registration success", user);
+};
 
-export {register}
+const login = async (req, res) => {
+  const { user, refreshToken, accessToken } = await authService.login(req.body);
+
+  res.cookies("refreshToken", refreshToken, {
+    httpOnly: true,
+    secure: true,
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+  });
+
+  ApiResponse.ok(res, "Login successful", {user, accessToken});
+};
+
+export { register, login };

@@ -136,4 +136,4 @@ const newPassword = async (token, newPassword) => {
   return {message : "Password reset successful"}
 };
 
-export { register };
+export { register, login, refresh, logout, forgotPassword, newPassword };
