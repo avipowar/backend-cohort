@@ -116,3 +116,6 @@
 - schema password which saved in db in hash format 
 - and compare two values 
 - and return true or false 
+
+# check password inside the login service using userSchema.methods.comparePassword method 
+- we send password and call the method 
