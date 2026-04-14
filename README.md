@@ -101,3 +101,12 @@
 - check expired token 
 - update new password from db 
 - delete the token  
+
+# make the password hashable format 
+- for that we use bcrypt library 
+- and we use pre hooke is given by mongoose 
+- inside that we write password hashable logic 
+- this bcrypt.hash method take password and salt round 
+- salt round is random string 
+- and make password hashable and save in db 
+- call the next 
