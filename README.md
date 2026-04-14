@@ -123,3 +123,8 @@
 # create middleware which check user loggedIn or not and user role 
 - take token => verify the token => and get the id from token => find user based on Id inside User Model => edit the req => call next()  
 - take role => check req.user.role => give the access based on permission
+
+# write Login route, loginDtoClass, controller, 
+- write loginDto 
+- write route 
+- call the controller inside thr route 
