@@ -17,13 +17,33 @@ const login = async (req, res) => {
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
   });
 
-  ApiResponse.ok(res, "Login successfully", {user, accessToken});
+  ApiResponse.ok(res, "Login successfully", { user, accessToken });
 };
 
 const logout = async (req, res) => {
-  await authService.logout(req.user.id)
-  res.clearCookie("refreshToken")
+  await authService.logout(req.user.id);
+  res.clearCookie("refreshToken");
   ApiResponse.ok(res, "Logout successfully");
-}
+};
 
-export { register, login };
+const refresh = async (req, res) => {
+  // const token = req.body.refreshToken
+  // const token = req.cookies.refreshToken
+  const token = req.headers.authorization;
+
+  const { refreshToken, accessToken } = await authService.refresh(token);
+
+  res.cookies("refreshToken ", refreshToken, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "strict",
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+  });
+
+  ApiResponse.created(res, "New token generated", {
+    accessToken,
+  });
+};
+
+
+export { register, login, refresh };

@@ -86,7 +86,7 @@ const refresh = async (token) => {
 
   await user.save({ validateBeforeSave: false });
 
-  return { accessToken };
+  return { accessToken, refreshToken };
 };
 
 const logout = async (userId) => {

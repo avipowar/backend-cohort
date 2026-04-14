@@ -1,5 +1,5 @@
 import ApiError from "../../common/utils/api.error.js";
-import { verifyRefreshToken } from "../../common/utils/jwt-utils.js";
+import { verifyAccessToken } from "../../common/utils/jwt-utils.js";
 import User from "./auth.model.js";
 
 const authenticate = async (req, res, next) => {
@@ -10,7 +10,7 @@ const authenticate = async (req, res, next) => {
 
   if (!token) throw ApiError.unauthorized("Not Authenticated");
 
-  const decode = verifyRefreshToken(token);
+  const decode = verifyAccessToken(token);
 
   const user = await User.findById(decode.id);
 
