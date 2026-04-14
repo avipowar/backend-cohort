@@ -110,3 +110,9 @@
 - salt round is random string 
 - and make password hashable and save in db 
 - call the next 
+
+# compare password using bcrypt.compare
+- this take user password 
+- schema password which saved in db in hash format 
+- and compare two values 
+- and return true or false 
