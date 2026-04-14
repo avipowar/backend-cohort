@@ -45,5 +45,11 @@ const refresh = async (req, res) => {
   });
 };
 
+const forgotPassword = async (req, res) => {
+  await authService.forgotPassword(req.body.email)
 
-export { register, login, refresh };
+  ApiResponse.ok(res, "send the verification code ")
+}
+
+
+export { register, login, refresh, forgotPassword };

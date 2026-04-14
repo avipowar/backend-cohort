@@ -139,3 +139,8 @@
 - write refresh route 
 - call the controller inside thr route 
 - write controller
+
+# write forgotPassword route, controller, 
+- write forgotPassword route 
+- call the controller inside thr route 
+- write controller
