@@ -119,3 +119,7 @@
 
 # check password inside the login service using userSchema.methods.comparePassword method 
 - we send password and call the method 
+
+# create middleware which check user loggedIn or not and user role 
+- take token => verify the token => and get the id from token => find user based on Id inside User Model => edit the req => call next()  
+- take role => check req.user.role => give the access based on permission
