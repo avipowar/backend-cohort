@@ -17,7 +17,13 @@ const login = async (req, res) => {
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
   });
 
-  ApiResponse.ok(res, "Login successful", {user, accessToken});
+  ApiResponse.ok(res, "Login successfully", {user, accessToken});
 };
+
+const logout = async (req, res) => {
+  await authService.logout(req.user.id)
+  res.clearCookie("refreshToken")
+  ApiResponse.ok(res, "Logout successfully");
+}
 
 export { register, login };

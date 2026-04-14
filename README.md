@@ -128,3 +128,7 @@
 - write loginDto 
 - write route 
 - call the controller inside thr route 
+
+# write logout route, controller, 
+- write logout route 
+- call the controller inside thr route 
