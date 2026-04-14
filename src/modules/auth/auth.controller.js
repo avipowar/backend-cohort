@@ -51,5 +51,11 @@ const forgotPassword = async (req, res) => {
   ApiResponse.ok(res, "send the verification code ")
 }
 
+const newPassword  = async (req, res) => {
+  const {token, password} = req.body;
+  await authService.newPassword(token , password)
 
-export { register, login, refresh, forgotPassword };
+  ApiResponse.ok(res, "Password update successfully")
+}
+
+export { register, login, refresh, forgotPassword , newPassword};

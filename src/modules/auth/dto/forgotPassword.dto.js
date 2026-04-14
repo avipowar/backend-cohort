@@ -1,7 +1,7 @@
 import BaseDto from "../../../common/dto/base.dto.js";
 import Joi from "joi";
 
-class forgotPasswordDto extends BaseDto {
+class ForgotPasswordDto extends BaseDto {
   static schema = Joi.object({
     email: Joi.string().email().lowercase().required().message({
       "string.email": "Please enter a valid email",
@@ -10,4 +10,4 @@ class forgotPasswordDto extends BaseDto {
   });
 }
 
-export default forgotPasswordDto;
+export default ForgotPasswordDto;
