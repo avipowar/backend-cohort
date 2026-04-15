@@ -7,6 +7,7 @@ import {
   verifyRefreshToken,
 } from "../../common/utils/jwt-utils";
 import crypto from "crypto";
+import { sendVerificationEmail } from "../../common/config/email";
 
 const register = async ({ name, email, password, role }) => {
   const existing = await User.findOne({ email });
@@ -23,6 +24,11 @@ const register = async ({ name, email, password, role }) => {
   });
 
   // TODO: send an email to user with token: rawToken
+  try {
+    sendVerificationEmail(email, rawToken)
+  } catch (error) {
+    console.error(error)
+  }
 
   const userObj = user.toObject();
   delete userObj.password;
@@ -66,6 +72,21 @@ const login = async ({ email, password }) => {
 
   return { user: userObj, refreshToken, accessToken };
 };
+
+const verifyEmail = async(token) => {
+  const hashToken =  hashed(token)
+
+  const user = await User.findOne({verificationToken : hashToken}).select("+verificationToken");
+
+  if(!user) throw ApiError.badRequest("Invalid or expired token");
+
+  user.isVerified = true;
+  user.verificationToken = undefined;
+  await user.save();
+
+  return user;
+
+}
 
 const refresh = async (token) => {
   if (!token) throw ApiError.unauthorized("Refresh token is missing");
@@ -136,4 +157,4 @@ const newPassword = async (token, newPassword) => {
   return {message : "Password reset successful"}
 };
 
-export { register, login, refresh, logout, forgotPassword, newPassword };
+export { register, login, refresh, logout, forgotPassword, newPassword, verifyEmail };

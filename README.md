@@ -149,3 +149,18 @@
 - write newPassword route 
 - call the controller inside thr route 
 - write controller
+
+# learn how to send email 
+- js will not send email directly to the user 
+- we use nodemailer for that 
+- we install nodemailer 
+- amd login to mailtrap 
+- mailtrap is post office for testing your email code 
+- mailtrap help us to test your email 
+- create isVerifyEmail service 
+- that service receive token and verify the mail 
+- write controller to call this service 
+
+user => send email(TOKEN) => nodemailer => mailtrap => send in MAILTRAP inbox (testing phase )
+
+user => send email(TOKEN) => nodemailer => SMTP  => send in REAL USER (LIVE APP )

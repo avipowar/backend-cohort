@@ -20,6 +20,12 @@ const login = async (req, res) => {
   ApiResponse.ok(res, "Login successfully", { user, accessToken });
 };
 
+const verifyEmail = async(req, res) => {
+  const user = await authService.verifyEmail(req.params.token)
+
+  ApiResponse.ok(res, "Email verified successfully", user)
+}
+
 const logout = async (req, res) => {
   await authService.logout(req.user.id);
   res.clearCookie("refreshToken");
