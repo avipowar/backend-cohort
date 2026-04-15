@@ -164,3 +164,13 @@
 user => send email(TOKEN) => nodemailer => mailtrap => send in MAILTRAP inbox (testing phase )
 
 user => send email(TOKEN) => nodemailer => SMTP  => send in REAL USER (LIVE APP )
+
+# write route inside the express app
+- export route file 
+- import in app.js 
+- add middleware inside the app.js file 
+- express.json => json => js Object
+- urlencoded => fromData => js Object
+- cookieParser => to read cookies from req
+- express does not do this alone for that he use above middleware
+- and add script inside the package.json which is start
