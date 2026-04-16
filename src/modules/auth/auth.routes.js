@@ -1,12 +1,12 @@
 import { Router } from "express";
-import * as controller from "./auth.controller"
-import validate from "../../common/middleware/validate.middleware"
-import RegisterDto from "./dto/register.dto";
-import LoginDto from "./dto/login.dto";
-import ForgotPasswordDto from "./dto/forgotPassword.dto";
-import NewPasswordDto from "./dto/newPassword.dto";
-import RefreshTokenDto from "./dto/refreshToken.dto";
-import { authenticate } from "./auth.middleware";
+import * as controller from "./auth.controller.js"
+import validate from "../../common/middleware/validate.middleware.js"
+import RegisterDto from "./dto/register.dto.js";
+import LoginDto from "./dto/login.dto.js";
+import ForgotPasswordDto from "./dto/forgotPassword.dto.js";
+import NewPasswordDto from "./dto/newPassword.dto.js";
+import RefreshTokenDto from "./dto/refreshToken.dto.js";
+import { authenticate } from "./auth.middleware.js";
 
 const router = Router()
 

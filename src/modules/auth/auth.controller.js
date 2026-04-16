@@ -1,5 +1,5 @@
-import * as authService from "./auth.service";
-import ApiResponse from "../../common/utils/api.response";
+import * as authService from "./auth.service.js";
+import ApiResponse from "../../common/utils/api.response.js";
 
 const register = async (req, res) => {
   // something
@@ -11,7 +11,7 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   const { user, refreshToken, accessToken } = await authService.login(req.body);
 
-  res.cookies("refreshToken", refreshToken, {
+  res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
     secure: true,
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
@@ -39,7 +39,7 @@ const refresh = async (req, res) => {
 
   const { refreshToken, accessToken } = await authService.refresh(token);
 
-  res.cookies("refreshToken ", refreshToken, {
+  res.cookies("refreshToken", refreshToken, {
     httpOnly: true,
     secure: true,
     sameSite: "strict",
@@ -64,4 +64,4 @@ const newPassword  = async (req, res) => {
   ApiResponse.ok(res, "Password update successfully")
 }
 
-export { register, login, refresh, forgotPassword , newPassword};
+export { register, login, refresh, forgotPassword , newPassword, logout};

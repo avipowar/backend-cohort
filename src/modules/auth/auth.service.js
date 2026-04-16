@@ -1,13 +1,13 @@
-import User from "./auth.model";
-import ApiError from "../../common/utils/api.error";
+import User from "./auth.model.js";
+import ApiError from "../../common/utils/api.error.js";
 import {
   generateResetToken,
   generateAccessToken,
   generateRefreshToken,
   verifyRefreshToken,
-} from "../../common/utils/jwt-utils";
+} from "../../common/utils/jwt-utils.js";
 import crypto from "crypto";
-import { sendVerificationEmail } from "../../common/config/email";
+import { sendVerificationEmail } from "../../common/config/email.js";
 
 const register = async ({ name, email, password, role }) => {
   const existing = await User.findOne({ email });

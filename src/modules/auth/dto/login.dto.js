@@ -1,4 +1,4 @@
-import BaseDto from "../../../common/dto/base.dto.JS"
+import BaseDto from "../../../common/dto/base.dto.js"
 import Joi from "joi"
 
 
