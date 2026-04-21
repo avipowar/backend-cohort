@@ -23,12 +23,29 @@ const sendEmail = async (to, subject, html) => {
   });
 };
 
+// const sendVerificationEmail = async (email, token) => {
+//   const url = `${process.env.CLIENT_URL}api/auth/verify-email?token=${token}`;
+//   await sendEmail(
+//     email,
+//     "Verify your email",
+//     // `<h2>Welcome!</h2><p>Click <a href="${url}">here</a> to verify your email.</p>`,
+//     <a href="http://127.0.0.1:4000/auth/verify-email?token=abc123" target="_blank">
+//   Verify Email
+// </a>
+//   );
+// };
+
 const sendVerificationEmail = async (email, token) => {
-  const url = `${process.env.CLIENT_URL}/verify-email/${token}`;
+  const url = `http://127.0.0.1:4000/auth/verify-email?token=${token}`;
+
   await sendEmail(
     email,
     "Verify your email",
-    `<h2>Welcome!</h2><p>Click <a href="${url}">here</a> to verify your email.</p>`,
+    `
+      <h2>Welcome!</h2>
+      <p>Click below to verify your email:</p>
+      <a href="${url}" target="_blank">Verify Email</a>
+    `
   );
 };
 

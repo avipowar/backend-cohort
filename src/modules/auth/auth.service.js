@@ -113,7 +113,7 @@ const verifyEmail = async(token) => {
     throw ApiError.badRequest("Invalid or expired verification token");
   }
 
-  const hashToken =  hashed(token)
+  const hashToken =  hashed(trimmed)
 
   const user = await User.findOne({verificationToken : hashToken}).select("+verificationToken");
 

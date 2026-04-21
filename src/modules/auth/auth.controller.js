@@ -21,6 +21,8 @@ const login = async (req, res) => {
 };
 
 const verifyEmail = async(req, res) => {
+  const {token} = req.query;
+  
   const user = await authService.verifyEmail(req.params.token)
 
   ApiResponse.ok(res, "Email verified successfully", user)
