@@ -174,3 +174,8 @@ user => send email(TOKEN) => nodemailer => SMTP  => send in REAL USER (LIVE APP 
 - cookieParser => to read cookies from req
 - express does not do this alone for that he use above middleware
 - and add script inside the package.json which is start
+
+# create docker.compose.yml file 
+
+- setup mongodb 
+-
