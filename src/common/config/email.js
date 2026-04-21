@@ -5,8 +5,8 @@ import nodemailer from "nodemailer"
 //  Create the "delivery truck" (transporter)
 // This connects to your email post office (SMTP server)
 var transporter = nodemailer.createTransport({
-  host: "sandbox.smtp.mailtrap.io", // WHERE is the post office?
-  port: 587,  // WHICH door of post office?
+  host: process.env.SMTP_HOST, // WHERE is the post office?
+  port:  Number(process.env.SMTP_PORT) || 587, // WHICH door of post office?
   secure: false,   // HOW to enter the door?
   auth: {
     user: process.env.SMTP_USER,  // WHO are you?
@@ -31,6 +31,7 @@ const sendVerificationEmail = async (email, token) => {
     `<h2>Welcome!</h2><p>Click <a href="${url}">here</a> to verify your email.</p>`,
   );
 };
+
 const sendResetPasswordEmail = async (email, token) => {
   const url = `${process.env.CLIENT_URL}/reset-password/${token}`
   await sendEmail(
@@ -40,5 +41,17 @@ const sendResetPasswordEmail = async (email, token) => {
   )
 }
 
+const sendOrderConformationEmail = async (email, order) => {
+  const items = order.items.map((item)=>`<li>${item.title} x${item.quantity} -₹${item.price} </li>`).join("");
+  await sendEmail(
+    email,
+    `order confirmed - ${order.orderNumber}`,
+    `<h2>>Order Confirmed!</h2>
+     <p>Order: ${order.orderNumber}</p>
+     <ul>${items}</ul>
+     <p><strong>Total: ₹${order.totalAmount}</strong></p>`,
+  )
+}
 
-export { sendVerificationEmail, sendResetPasswordEmail };
+
+export { sendVerificationEmail, sendResetPasswordEmail , sendOrderConfirmationEmail};

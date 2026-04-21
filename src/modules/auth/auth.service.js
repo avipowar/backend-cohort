@@ -73,20 +73,6 @@ const login = async ({ email, password }) => {
   return { user: userObj, refreshToken, accessToken };
 };
 
-const verifyEmail = async(token) => {
-  const hashToken =  hashed(token)
-
-  const user = await User.findOne({verificationToken : hashToken}).select("+verificationToken");
-
-  if(!user) throw ApiError.badRequest("Invalid or expired token");
-
-  user.isVerified = true;
-  user.verificationToken = undefined;
-  await user.save();
-
-  return user;
-
-}
 
 const refresh = async (token) => {
   if (!token) throw ApiError.unauthorized("Refresh token is missing");
@@ -120,6 +106,27 @@ const logout = async (userId) => {
   // await User.findByIdAndUpdate(userId, {refreshToken: null})
 };
 
+const verifyEmail = async(token) => {
+
+   const trimmed = String(token).trim();
+  if (!trimmed) {
+    throw ApiError.badRequest("Invalid or expired verification token");
+  }
+
+  const hashToken =  hashed(token)
+
+  const user = await User.findOne({verificationToken : hashToken}).select("+verificationToken");
+
+  if(!user) throw ApiError.badRequest("Invalid or expired verification token");
+
+  user.isVerified = true;
+  user.verificationToken = undefined;
+  await user.save();
+
+  return user;
+
+}
+
 const forgotPassword = async (email) => {
   const user = await User.findOne({ email });
   if (!user) throw ApiError.notFound("No account with that email");
@@ -131,9 +138,14 @@ const forgotPassword = async (email) => {
   await user.save();
 
   // i don't know how to send mail to the user
+   try {
+    await sendResetPasswordEmail(email, rawToken);
+  } catch (err) {
+    console.error("Failed to send reset email:", err.message);
+  }
 };
 
-const newPassword = async (token, newPassword) => {
+const resetPassword = async (token, newPassword) => {
   //  step 1
   const hashedToken = hashed(token);
 
@@ -141,7 +153,7 @@ const newPassword = async (token, newPassword) => {
   const user = await User.findOne({
     resetPasswordToken: hashedToken,
     resetPasswordExpires: { $gt: Date.now() }, //  $gt = greater than {resetPasswordExpires > right time}
-  }).select("+password");
+  }).select("+resetPasswordToken +resetPasswordExpires");
 
   if (!user) throw ApiError.badRequest("Token is Invalid Or expired");
 
@@ -157,4 +169,20 @@ const newPassword = async (token, newPassword) => {
   return {message : "Password reset successful"}
 };
 
-export { register, login, refresh, logout, forgotPassword, newPassword, verifyEmail };
+const getMe = async (userId) => {
+  const user = await User.findById(userId);
+  if (!user) throw ApiError.notFound("User not found");
+  return user;
+};
+
+export {
+  register,
+  login,
+  refresh,
+  logout,
+  verifyEmail,
+  forgotPassword,
+  resetPassword,
+  getMe,
+};
+

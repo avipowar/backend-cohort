@@ -13,7 +13,7 @@ const login = async (req, res) => {
 
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
-    secure: true,
+    secure: process.env.NODE_ENV === "production",
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
   });
 
@@ -32,19 +32,12 @@ const logout = async (req, res) => {
   ApiResponse.ok(res, "Logout successfully");
 };
 
-const refresh = async (req, res) => {
+const refreshToken = async (req, res) => {
   // const token = req.body.refreshToken
-  // const token = req.cookies.refreshToken
-  const token = req.headers.authorization;
+  const token = req.cookies.refreshToken
+  // const token = req.headers.authorization;
 
   const { refreshToken, accessToken } = await authService.refresh(token);
-
-  res.cookies("refreshToken", refreshToken, {
-    httpOnly: true,
-    secure: true,
-    sameSite: "strict",
-    maxAge: 7 * 24 * 60 * 60 * 1000,
-  });
 
   ApiResponse.created(res, "New token generated", {
     accessToken,
@@ -57,11 +50,23 @@ const forgotPassword = async (req, res) => {
   ApiResponse.ok(res, "send the verification code ")
 }
 
-const newPassword  = async (req, res) => {
-  const {token, password} = req.body;
-  await authService.newPassword(token , password)
-
+const resetPassword  = async (req, res) => {
+   await authService.resetPassword(req.params.token, req.body.password);
   ApiResponse.ok(res, "Password update successfully")
 }
 
-export { register, login, refresh, forgotPassword , newPassword, logout};
+const getMe = async (req, res) => {
+  const user = await authService.getMe(req.user.id);
+  ApiResponse.ok(res, "User profile", user);
+};
+
+export {
+  register,
+  login,
+  refreshToken,
+  logout,
+  verifyEmail,
+  forgotPassword,
+  resetPassword,
+  getMe,
+};

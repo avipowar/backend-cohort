@@ -3,10 +3,7 @@ import Joi from "joi";
 
 class ForgotPasswordDto extends BaseDto {
   static schema = Joi.object({
-    email: Joi.string().email().lowercase().required().messages({
-      "string.email": "Please enter a valid email",
-      "any.required": "Email is required",
-    }),
+    email: Joi.string().email().lowercase().required()
   });
 }
 
