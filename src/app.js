@@ -10,7 +10,7 @@ app.use(cookieParser())
 app.use("/api/auth", authRoute)
 
 // Catch-all for undefined routes
-app.all("{*path}", (req, res) => {
+app.use((req, res) => {
   throw ApiError.notFound(`Route ${req.originalUrl} not found`);
 });
 

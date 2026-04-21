@@ -7,7 +7,7 @@ import nodemailer from "nodemailer"
 var transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST, // WHERE is the post office?
   port:  Number(process.env.SMTP_PORT) || 587, // WHICH door of post office?
-  secure: false,   // HOW to enter the door?
+  // secure: false,   // HOW to enter the door?
   auth: {
     user: process.env.SMTP_USER,  // WHO are you?
     pass: process.env.SMTP_PASS, // WHAT is your password?
@@ -54,4 +54,4 @@ const sendOrderConformationEmail = async (email, order) => {
 }
 
 
-export { sendVerificationEmail, sendResetPasswordEmail , sendOrderConfirmationEmail};
+export { sendVerificationEmail, sendResetPasswordEmail , sendOrderConformationEmail};

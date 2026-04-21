@@ -3,9 +3,9 @@ import * as controller from "./auth.controller.js"
 import validate from "../../common/middleware/validate.middleware.js"
 import RegisterDto from "./dto/register.dto.js";
 import LoginDto from "./dto/login.dto.js";
-import ForgotPasswordDto from "./dto/forgotPassword.dto.js";
-import ResetPasswordDto from "./dto/newPassword.dto.js";
-import RefreshTokenDto from "./dto/refreshToken.dto.js";
+import ForgotPasswordDto from "./dto/forgot-password.dto.js";
+import ResetPasswordDto from "./dto/reset-password.dto.js";
+import RefreshTokenDto from "./dto/refresh-token.dto.js";
 import { authenticate } from "./auth.middleware.js";
 
 const router = Router()
