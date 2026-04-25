@@ -5,7 +5,7 @@ const register = async (req, res) => {
   // something
   const user = await authService.register(req.body);
 
-  ApiResponse.created(res, "Registration success", user);
+  ApiResponse.created(res, "Registration successful. Please verify your email.", user);
 };
 
 const login = async (req, res) => {

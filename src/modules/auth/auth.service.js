@@ -7,7 +7,7 @@ import {
   verifyRefreshToken,
 } from "../../common/utils/jwt-utils.js";
 import crypto from "crypto";
-import { sendVerificationEmail } from "../../common/config/email.js";
+import { sendVerificationEmail, sendResetPasswordEmail } from "../../common/config/email.js";
 
 const register = async ({ name, email, password, role }) => {
   const existing = await User.findOne({ email });
@@ -25,7 +25,7 @@ const register = async ({ name, email, password, role }) => {
 
   // TODO: send an email to user with token: rawToken
   try {
-    sendVerificationEmail(email, rawToken)
+    await sendVerificationEmail(email, rawToken)
   } catch (error) {
     console.error(error)
   }
@@ -83,7 +83,7 @@ const refresh = async (token) => {
   if (!user) throw ApiError.unauthorized("User Not Found");
 
   if (user.refreshToken !== hashed(token)) {
-    throw ApiError("Invalid refresh token");
+    throw ApiError.unauthorized("Invalid refresh token");
   }
 
   const accessToken = generateAccessToken({ id: user._id, role: user.role });

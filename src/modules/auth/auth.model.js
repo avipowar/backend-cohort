@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
-const userSchema = mongoose.Schema(
+const userSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -27,7 +27,7 @@ const userSchema = mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ["customer", "seller", "admin"],
+      enum: ["customer", "support", "admin"],
       default: "customer",
     },
     isVerified: {
@@ -61,8 +61,8 @@ userSchema.pre("save", async function () {
 
 });
 
-userSchema.methods.comparePassword = async function (clearTextPassword) {
-    return bcrypt.compare(clearTextPassword, this.password)
+userSchema.methods.comparePassword = async function (candidatePassword) {
+    return bcrypt.compare(candidatePassword, this.password)
 }
 
 export default mongoose.model("User", userSchema);
