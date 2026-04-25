@@ -185,3 +185,4 @@ user => send email(TOKEN) => nodemailer => SMTP  => send in REAL USER (LIVE APP 
 # fs module 
 
 - learn sync methods
+- learn async methods
