@@ -186,3 +186,4 @@ user => send email(TOKEN) => nodemailer => SMTP  => send in REAL USER (LIVE APP 
 
 - learn sync methods
 - learn async methods
+- learn promises methods
