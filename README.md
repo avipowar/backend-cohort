@@ -187,3 +187,16 @@ user => send email(TOKEN) => nodemailer => SMTP  => send in REAL USER (LIVE APP 
 - learn sync methods
 - learn async methods
 - learn promises methods
+
+# setup multer 
+- its middleware
+- help to read multiPart-from-data sending from the browser
+- install multer 
+- multer stored file by default in memory
+- that is file come in buffer format 
+- we use diskStorage for that
+- diskStorage take two keys first is path 2nd is unique name
+- add the data into uploads file but it not human cannot read this
+- for that we add extension in 2nd key
+- we import path
+- and extract file extension from that and use it 
