@@ -178,4 +178,10 @@ user => send email(TOKEN) => nodemailer => SMTP  => send in REAL USER (LIVE APP 
 # create docker.compose.yml file 
 
 - setup mongodb 
--
+
+
+
+
+# fs module 
+
+- learn sync methods
