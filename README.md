@@ -203,3 +203,7 @@ user => send email(TOKEN) => nodemailer => SMTP  => send in REAL USER (LIVE APP 
 
 - learn how to add file limit on file 
 - and also add file extension limit  
+
+## how to take multiple images 
+
+## how to take multiple fields

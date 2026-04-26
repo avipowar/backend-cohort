@@ -40,18 +40,24 @@ const upload = multer({
   fileFilter : (req, file, cb) => {
     const allowed = ["image/png",  "image/jpeg" , "application/pdf"]
 
+    console.log("incoming file type: ",file.mimetype)
+
     if(allowed.includes(file.mimetype)){
       cb(null, true)
     }else {
-      cb(ApiError.badRequest("Only PNG, JPEG, and PDF files are allowed"), false)
+      cb(new Error("Only PNG, JPEG, and PDF files are allowed"), false)
     }
   }
 
 })
 
 
-app.post("/upload", upload.single("file"), async (req, res) => {
-  console.log("this is my req body : ", req.file);
+app.post("/upload", upload.fields([
+  {name : "file", maxCount: 1},
+  {name : "files", maxCount: 1},
+  {name : "filess", maxCount: 1}
+]), async (req, res) => {
+  console.log("this is my req file : ", req.files);
 
   // const data = req.file.buffer
   // const fileName = Date.now() + "-" + req.file.originalname;
