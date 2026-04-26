@@ -200,3 +200,6 @@ user => send email(TOKEN) => nodemailer => SMTP  => send in REAL USER (LIVE APP 
 - for that we add extension in 2nd key
 - we import path
 - and extract file extension from that and use it 
+
+- learn how to add file limit on file 
+- and also add file extension limit  
