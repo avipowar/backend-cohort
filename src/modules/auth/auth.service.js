@@ -184,7 +184,7 @@ const uploadAvatar = async (userId , file) => {
 
     const uploadResponse = await imagekit.files.upload({
       file: fileStream,
-      filename: file.filename,
+      fileName: file.filename,
       folder: "/users-avatar"
     })
 
