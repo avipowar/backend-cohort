@@ -8,6 +8,8 @@ import {
 } from "../../common/utils/jwt-utils.js";
 import crypto from "crypto";
 import { sendVerificationEmail, sendResetPasswordEmail } from "../../common/config/email.js";
+import fs from "node:fs"
+import imagekit from "../../common/config/imagekit.js";
 
 const register = async ({ name, email, password, role }) => {
   const existing = await User.findOne({ email });
@@ -55,9 +57,9 @@ const login = async ({ email, password }) => {
   if(!isMatch) throw ApiError.unauthorized("Invalid Email or Password");
 
 
-  if (!user.isVerified) {
-    throw ApiError.forbidden("Please Verify your email before login");
-  }
+  // if (!user.isVerified) {
+  //   throw ApiError.forbidden("Please Verify your email before login");
+  // }
 
   const accessToken = generateAccessToken({ id: user._id, role: user.role });
   const refreshToken = generateRefreshToken({ id: user._id });
@@ -175,6 +177,39 @@ const getMe = async (userId) => {
   return user;
 };
 
+const uploadAvatar = async (userId , file) => {
+  try {
+    console.log(file)
+    const fileStream = fs.createReadStream(file.path)
+
+    const uploadResponse = await imagekit.files.upload({
+      file: fileStream,
+      filename: file.filename,
+      folder: "/users-avatar"
+    })
+
+    await User.findByIdAndUpdate(userId, {avatar: uploadResponse.url}, {new: true})
+
+    fs.unlinkSync(file.path)
+
+    return {
+      url:uploadResponse.url,
+      fileId:uploadResponse.fileId
+    }
+
+  } catch (error) {
+    try {
+      if(file.path && fs.existsSync(file.path)){
+        fs.unlinkSync(file.path);
+      }
+    } catch (error) {
+       console.error("Error deleting temp file:", error);
+    }
+
+    throw error;
+  }
+}
+
 export {
   register,
   login,
@@ -184,5 +219,6 @@ export {
   forgotPassword,
   resetPassword,
   getMe,
+  uploadAvatar
 };
 

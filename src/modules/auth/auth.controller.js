@@ -1,11 +1,16 @@
 import * as authService from "./auth.service.js";
 import ApiResponse from "../../common/utils/api.response.js";
+import ApiError from "../../common/utils/api.error.js";
 
 const register = async (req, res) => {
   // something
   const user = await authService.register(req.body);
 
-  ApiResponse.created(res, "Registration successful. Please verify your email.", user);
+  ApiResponse.created(
+    res,
+    "Registration successful. Please verify your email.",
+    user,
+  );
 };
 
 const login = async (req, res) => {
@@ -20,13 +25,13 @@ const login = async (req, res) => {
   ApiResponse.ok(res, "Login successfully", { user, accessToken });
 };
 
-const verifyEmail = async(req, res) => {
-  const {token} = req.query;
-  
-  const user = await authService.verifyEmail(req.params.token)
+const verifyEmail = async (req, res) => {
+  const { token } = req.query;
 
-  ApiResponse.ok(res, "Email verified successfully", user)
-}
+  const user = await authService.verifyEmail(req.params.token);
+
+  ApiResponse.ok(res, "Email verified successfully", user);
+};
 
 const logout = async (req, res) => {
   await authService.logout(req.user.id);
@@ -36,7 +41,7 @@ const logout = async (req, res) => {
 
 const refreshToken = async (req, res) => {
   // const token = req.body.refreshToken
-  const token = req.cookies.refreshToken
+  const token = req.cookies.refreshToken;
   // const token = req.headers.authorization;
 
   const { refreshToken, accessToken } = await authService.refresh(token);
@@ -47,19 +52,41 @@ const refreshToken = async (req, res) => {
 };
 
 const forgotPassword = async (req, res) => {
-  await authService.forgotPassword(req.body.email)
+  await authService.forgotPassword(req.body.email);
 
-  ApiResponse.ok(res, "send the verification code ")
-}
+  ApiResponse.ok(res, "send the verification code ");
+};
 
-const resetPassword  = async (req, res) => {
-   await authService.resetPassword(req.params.token, req.body.password);
-  ApiResponse.ok(res, "Password update successfully")
-}
+const resetPassword = async (req, res) => {
+  await authService.resetPassword(req.params.token, req.body.password);
+  ApiResponse.ok(res, "Password update successfully");
+};
 
 const getMe = async (req, res) => {
   const user = await authService.getMe(req.user.id);
   ApiResponse.ok(res, "User profile", user);
+};
+
+const uploadAvatar = async (req, res) => {
+  try {
+    const file = req.file;
+
+
+    if (!file) {
+      return ApiError.badRequest(
+        "No file is uploaded please send file with filed name 'avatar'",
+      );
+    }
+
+    const result = await authService.uploadAvatar(req.user.id, file);
+
+    return ApiResponse.ok(res, " Avatar uploaded successfully", {
+      avatarUrl: result.url,
+    });
+  } catch (error) {
+    console.error("upload error", error);
+    return ApiError.internal(error.message || "Failed to upload avatar");
+  }
 };
 
 export {
@@ -71,4 +98,5 @@ export {
   forgotPassword,
   resetPassword,
   getMe,
+  uploadAvatar,
 };

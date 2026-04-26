@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
+
 const userSchema = new mongoose.Schema(
   {
     name: {
@@ -33,6 +34,10 @@ const userSchema = new mongoose.Schema(
     isVerified: {
       type: Boolean,
       default: false,
+    },
+    avatar:{
+      type: String,
+      default: false
     },
     verificationToken: {
       type: String,

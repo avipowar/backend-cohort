@@ -207,3 +207,15 @@ user => send email(TOKEN) => nodemailer => SMTP  => send in REAL USER (LIVE APP 
 ## how to take multiple images 
 
 ## how to take multiple fields
+
+# learn how to use IMAGE-KIT and make avatar url
+
+- update the mongoose schema with avatar filed 
+- write route and controller 
+- and add multer as middleware 
+- go to image-kit documentation
+- install image-kit
+- go to image-kit-io and login there
+- make env variable
+- add image kit configurations inside common/config
+- write service

@@ -22,6 +22,9 @@ class ApiError extends Error {
     static notFound(message = "notFound"){
         return new ApiError(404, message)
     }
+    static internal(message = "Failed to upload"){
+        return new ApiError(500, message)
+    }
 }
 export default ApiError;
 
