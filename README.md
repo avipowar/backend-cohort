@@ -219,3 +219,14 @@ user => send email(TOKEN) => nodemailer => SMTP  => send in REAL USER (LIVE APP 
 - make env variable
 - add image kit configurations inside common/config
 - write service
+
+
+# IPL Management APP 
+
+- Create folder IPL-management system inside src/modules/
+- Create folder modules, routes, controllers, services inside IPL-management/
+- write model 
+- write route 
+- write controller 
+- write services
+

@@ -1,0 +1,16 @@
+import mongoose from "mongoose";
+
+const sponsorSchema  = mongoose.Schema({
+
+    name: {
+        type: String,
+        required: [true, "Sponsor name is required"],
+        trim: true,
+        minlength: 2,
+        maxlength: 100,
+        unique: true
+    },
+
+}, {timestamps: true})
+
+export default mongoose.model("Sponsor", sponsorSchema )
