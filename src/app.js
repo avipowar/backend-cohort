@@ -7,6 +7,7 @@ import ApiError from "./common/utils/api.error.js";
 import path from "path"
 import fs from "node:fs/promises"
 import { error } from "node:console";
+import ownerRoutes from "./modules/ipl-ms/routes/owner.routes.js"
 
 const app = express();
 app.use(express.json())
@@ -15,9 +16,11 @@ app.use(cookieParser())
 
 
 app.use("/api/auth", authRoute)
+app.use("/api/owners", ownerRoutes)
+
 
 // Catch-all for undefined routes
-app.use((req, res) => {
+app.use("{*path}",(req, res) => {
   throw ApiError.notFound(`Route ${req.originalUrl} not found`);
 });
 
