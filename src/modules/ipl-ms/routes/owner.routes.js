@@ -14,7 +14,7 @@ router.get("/", controller.getAllOwners)
 router.get("/:id", controller.getOwnerById)
 
 // update owner 
-router.put("/:id", controller.updateOwner)
+router.patch("/:id", controller.updateOwner)
 
 //  delete owner
 router.delete("/:id",controller.deleteOwner)

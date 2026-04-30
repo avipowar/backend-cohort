@@ -7,6 +7,7 @@ const teamSchema = new mongoose.Schema({
         trim: true,
         minlength: 2,
         maxlength: 100,
+        unique : true
     },
 
     ownerId: {
@@ -16,6 +17,8 @@ const teamSchema = new mongoose.Schema({
     }
 
 }, {timestamps: true});
+
+teamSchema.index({ name: 1, ownerId: 1 }, { unique: true });
 
 export default mongoose.model("Team", teamSchema)
 
