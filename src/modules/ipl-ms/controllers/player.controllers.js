@@ -16,12 +16,13 @@ const getPlayer = async(req, res) => {
     ApiResponse.ok(res, "Player fetch successfully", player)
 }
 
-const updatePlayer = async() => {
+const updatePlayer = async(req, res) => {
+    console.log("update body:", req.body)
     const updatePlayer = await playerServices.updatePlayer(req.params.id, req.body)
     ApiResponse.ok(res, "Player updated successfully", updatePlayer)
 }
 
-const deletePlayer = async() => {
+const deletePlayer = async(req, res) => {
     const deletePlayer = await playerServices.deletePlayer(req.params.id)
     ApiResponse.ok(res, "Player deleted successfully", deletePlayer)
 }

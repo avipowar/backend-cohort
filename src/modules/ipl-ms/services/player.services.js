@@ -5,14 +5,15 @@ import Team from "../models/team.model.js"
 
 const addNewPlayer = async ({name, role, teamId}) => {
 
-    const isPlayerExist = await Player.findOne({
+    const PlayerExist = await Player.findOne({
         name,
         role,
         teamId
     }).populate("teamId", "name")
 
-    if(isPlayerExist){
-        throw ApiError.conflict(`Player already exist in this ${isPlayerExist.teamId.name}`)
+
+    if(PlayerExist){
+        throw ApiError.conflict(`Player already exist in this ${PlayerExist.teamId.name}`)
     }
 
     const player = await Player.create({
@@ -25,7 +26,7 @@ const addNewPlayer = async ({name, role, teamId}) => {
 }
 
 const getAllPlayers = async() => {
-    const players = await Player.find();
+    const players = await Player.find().populate("teamId");
     return players;
 }
 
