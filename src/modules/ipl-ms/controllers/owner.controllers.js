@@ -1,5 +1,5 @@
 import ApiResponse from "../../../common/utils/api.response.js"
-import * as ownerService from  "../services/owenr.services.js"
+import * as ownerService from  "../services/owner.services.js"
 
 const createOwner = async(req, res) => {
     const owner = await ownerService.createOwner(req.body);

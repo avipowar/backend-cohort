@@ -1,4 +1,4 @@
-import ApiResponse from "../../../common/utils/api.response"
+import ApiResponse from "../../../common/utils/api.response.js"
 import * as teamServices from "../services/team.services.js"
 
 const createTeam = async (req, res) => {
@@ -21,7 +21,7 @@ const updateTeam = async(req, res) => {
     ApiResponse.ok(res, "team updated successfully", updateTeam)
 }
 
-const deleteTeam = async () => {
+const deleteTeam = async (req, res) => {
     const deleteTeam = await teamServices.deleteTeam(req.params.id)
     ApiResponse.ok(res, "team deleted successfully", deleteTeam)
 }

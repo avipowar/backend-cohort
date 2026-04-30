@@ -7,12 +7,11 @@ const teamSchema = new mongoose.Schema({
         trim: true,
         minlength: 2,
         maxlength: 100,
-        unique : true
     },
 
     ownerId: {
-        type: mongoose.SchemaType.Types.objectId,
-        ref: "owner",
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Owner",
         required:[true , "Team Id is required"]
     }
 

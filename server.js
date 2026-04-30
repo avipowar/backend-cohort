@@ -5,7 +5,13 @@ import connectDB from "./src/common/config/db.js";
 const PORT = process.env.PORT || 5000;
 
 const start = async () => {
+    process.on("uncaughtException", (err) => {
+  console.error("UNCAUGHT EXCEPTION:", err);
+});
 
+process.on("unhandledRejection", (err) => {
+  console.error("UNHANDLED PROMISE:", err);
+});
     // connect to db
     await connectDB()
     

@@ -1,15 +1,15 @@
-import ApiError from "../../../common/utils/api.error";
+import ApiError from "../../../common/utils/api.error.js";
 import Team from "../models/team.model.js"
-import Owner from "../models/owner-model.js"
+import Owner from "../models/owner.model.js"
 
 const createTeam = async ({name, ownerId})=> {
 
-    const owner = Owner.findById(ownerId)
+    const owner = await Owner.findById(ownerId)
     if(!owner) {
         throw ApiError.notFound("Owner Not found")
     }
 
-    const team = await Team.findOne({name, ownerId})
+    const team = await Team.findOne({name})
     if(team) {
         throw ApiError.conflict("Team already exist")
     }
@@ -83,9 +83,17 @@ const deleteTeam = async (id) => {
      const team = await Team.findById(id)
     
         if(!team) {
-            return ApiError.notFound("owner not found")
+            throw ApiError.notFound("owner not found")
         }
 
     const deleteTeam = await Team.findByIdAndDelete(id)
     return deleteTeam
+}
+
+export {
+    createTeam,
+    getAllTeams,
+    getTeamById,
+    updateTeam,
+    deleteTeam
 }
