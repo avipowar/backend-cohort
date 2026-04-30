@@ -7,7 +7,7 @@ const teamBroadcasterSchema = mongoose.Schema({
         ref: "Team",
         required: [true, "Team is required"],
     },
-    broadCasterId: {
+    broadcasterId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Broadcaster",
         required: [true, "Broadcaster is required"],
