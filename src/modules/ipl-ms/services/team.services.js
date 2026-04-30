@@ -24,7 +24,7 @@ const createTeam = async ({name, ownerId})=> {
 
 const getAllTeams = async () => {
 
-    const teams = await Team.find()
+    const teams = await Team.find().populate("ownerId", "name")
 
     if(teams.length === 0) {
         throw ApiError.notFound("Teams not found")
@@ -36,7 +36,7 @@ const getAllTeams = async () => {
 const getTeamById = async (id) => {
 
 
-    const team = await Team.findById(id)
+    const team = await Team.findById(id).populate("ownerId")
     if(!team) {
         throw ApiError.notFound("Teams not found")
     }
@@ -47,6 +47,7 @@ const getTeamById = async (id) => {
 const updateTeam = async (id, {name, ownerId}) =>   {
 
     const team = await Team.findById(id);
+    const oldOwnerId = team.ownerId 
     if(!team) {
         throw ApiError.notFound("Teams not found")
     }
@@ -71,9 +72,14 @@ const updateTeam = async (id, {name, ownerId}) =>   {
         }
 
         team.ownerId = ownerId;
+
+        await Owner.findByIdAndDelete(oldOwnerId)
+        
     }
 
     await team.save()
+
+    
 
     return team;
 }
