@@ -13,9 +13,9 @@ const playerSchema = mongoose.Schema({
     role : {
         type: String,
         required: [true, "Player role is required"],
-        enum : {
-            value : ["batsman", "bowler", "all-rounder", "wicket-keeper"],
-            message: 'Role must be: "batsman" , "bowler" , "all-rounder" , "wicket-keeper"',
+        enum: {
+            values: ["batsman", "bowler", "all-rounder", "wicket-keeper"],
+            message: '{VALUE} is not a valid role'
         }
     },
     teamId: {
